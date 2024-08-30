@@ -23,6 +23,14 @@ app.post('/upload', upload.single('sst'), async (req, res) => {
   }
 });
 
+// Добавьте этот блок для обслуживания React-приложения
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../frontend/build', 'index.html'));
+});
+
+// Запуск сервера
 app.listen(3000, () => {
   console.log('Server started on http://localhost:3000');
 });
